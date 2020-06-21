@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "42a15289-35cf-4ade-90a1-1fb0bdc8a955",
+		"name": "Test Auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/register Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "319db9bd-92fe-44e7-9296-1d553a5d1ae9",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"User created.\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"asdf\",\n\t\"password\": \"1234\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"register"
+					]
+				},
+				"description": "Create a new user."
+			},
+			"response": []
+		},
+		{
+			"name": "/auth Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e3937eb2-66a0-49b4-9fbd-956ef2e6f8dd",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var access_token = jsonData.access_token;",
+							"pm.environment.set(\"access_token\", access_token);",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"asdf\",\n\t\"password\": \"1234\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/auth",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth"
+					]
+				},
+				"description": "Create a new user."
+			},
+			"response": []
+		},
+		{
+			"name": "/item/<name> Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "21417e67-ef47-4da3-a3df-aef75e592884",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"price\": 10.00,\n\t\"store_id\": 1\n}"
+				},
+				"url": {
+					"raw": "{{url}}/item/piano",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"item",
+						"piano"
+					]
+				},
+				"description": "Create new item"
+			},
+			"response": []
+		},
+		{
+			"name": "/item/<name> Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2eacebca-5373-4e8e-871f-684fa4c54343",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JWT {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/item/piano",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"item",
+						"piano"
+					]
+				},
+				"description": "Create new item"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
